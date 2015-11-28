@@ -15,7 +15,7 @@ module ReflectionTests =
             yield [|(fun (``the int``:int) (``a string``:string)  -> failwith ""); [("the int", typeof<int>);"a string", typeof<string>]|]
         }
 
-    [<Theory; PropertyData("functions with paramaters")>]
+    [<Theory; MemberData("functions with paramaters")>]
     let ``parses parameters of function correctly`` (func:obj) (expected:(string*Type) seq) =
         let result = getParameters (func |> Fancy.peel)
         for (expectedName,expectedtype),(name,``type``) in Seq.zip expected result do
@@ -28,7 +28,7 @@ module ReflectionTests =
             yield [| typeof<int32>; int64 1; 1|]
         }
 
-    [<Theory; PropertyData("conversions between types")>]
+    [<Theory; MemberData("conversions between types")>]
     let ``converting between equivalent types`` (toType:Type) (value:obj) (expected:obj) =
         let result = changeOrConvertType value toType
         Assert.Equal(expected, result)

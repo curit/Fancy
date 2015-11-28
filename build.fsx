@@ -3,6 +3,7 @@ open System.IO
 open Fake
 open Fake.Git
 open System
+open Fake.Testing.XUnit2
 
 let buildDir = "./bin/"
 let testDir  = "./test/"
@@ -39,12 +40,8 @@ Target "BuildTest" (fun _ ->
 )
 
 Target "Test" (fun _ ->
-    !! (testDir + "/*.Test*.dll")
-    |> xUnit (fun p ->
-        { p with
-            ToolPath = "./packages/xunit.runners/tools/xunit.console.clr4.exe"
-            TimeOut = TimeSpan.FromMinutes 20.
-            OutputDir = "./" })
+    !! (testDir + "/*.Tests.dll")
+    |> xUnit2 id
 )
 
 let release = ReleaseNotesHelper.parseReleaseNotes (File.ReadLines "ReleaseNotes.md")

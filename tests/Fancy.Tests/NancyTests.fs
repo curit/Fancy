@@ -29,7 +29,7 @@ module NancyTests =
             //yield [|"/%A"; [|typeof<Alpha>|]; "/{%s:alpha}"|]
         }
 
-    [<Theory; PropertyData("example urls")>]
+    [<Theory; MemberData("example urls")>]
     let ``fancy correctly formats nancy url strings`` url types expected =
         let result = formatNancyString url types
         Assert.Equal<string>(expected, result)
