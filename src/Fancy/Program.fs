@@ -174,6 +174,12 @@
             let (parsedUrl, parameters) = parseUrl url.Value peeledProcessor
             do nancyModule.Options.[parsedUrl, true] <- this.routeDelegateBuilder (peeledProcessor, parameters)
     
+        [<CustomOperation("patch")>]
+        member this.Patch (source, url:StringFormat<'a, 'z>, processor:'a) =
+            let peeledProcessor = processor |> peel
+            let (parsedUrl, parameters) = parseUrl url.Value peeledProcessor
+            do nancyModule.Patch.[parsedUrl, true] <- this.routeDelegateBuilder (peeledProcessor, parameters)
+    
 
     /// The fancy compution builder use this to write your modules for nancy in f#
     /// example: 
